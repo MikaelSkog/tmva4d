@@ -1,4 +1,4 @@
-## TMVA4D
+# TMVA4D
 The source code provided here allows for training and evaluating TMVA4D, a CNN architecture for semantic segmentation of radar data. TMVA4D takes radar heat maps in multiple views as input to predict segmentation masks in the elevation-azimuth view.
 
 ## Original Paper by Ouaknine et al.
@@ -55,7 +55,7 @@ With this, you can edit the tmva4d code on the fly and import functions and clas
 $ pip uninstall tmva4d
 ```
 
-You can take a look at the [Dockerfile](./Dockerfile) if you are uncertain about steps to install this project.
+You can look at the [Dockerfile](./Dockerfile) if you are uncertain about the steps to install this project.
 
 
 ## Running the code
@@ -73,14 +73,14 @@ In order to train a model, a JSON configuration file should be set. The configur
 
 ```bash
 $ cd tmva4d/tmva4d/
-$ python train.py --cfg config_files/tmvanet.json
+$ python train.py --cfg config_files/tmva4d.json
 ```
 
 If you want to train the MV-Net architecture (baseline), please use the corresponding configuration file: `mvnet.json`.
 
 ### Testing
 
-To test a recorded model, you should specify the path to the configuration file recorded in your log folder during training. Per example, if you want to test a model and your log path has been set to `/home/logs`, you should specify the following path: `/home/logs/carrada/tmvanet/name_of_the_model/config.json`. This way, you should execute the following command lines:
+To test a recorded model, you should specify the path to the configuration file recorded in your log folder during training. For example, if you want to test a model and your log path has been set to `/home/logs`, you should specify the following path: `/home/logs/carrada/tmvanet/name_of_the_model/config.json`. This way, you should execute the following command lines:
 
 ```bash
 $ cd tmva4d/tmva4d/
