@@ -76,8 +76,6 @@ $ cd tmva4d/tmva4d/
 $ python train.py --cfg config_files/tmva4d.json
 ```
 
-If you want to train the MV-Net architecture (baseline), please use the corresponding configuration file: `mvnet.json`.
-
 ### Testing
 
 To test a recorded model, you should specify the path to the configuration file recorded in your log folder during training. For example, if you want to test a model and your log path has been set to `/home/logs`, you should specify the following path: `/home/logs/carrada/tmvanet/name_of_the_model/config.json`. This way, you should execute the following command lines:
