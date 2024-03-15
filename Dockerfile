@@ -9,10 +9,10 @@ RUN conda install python
 
 RUN pip install numpy Pillow scikit-image scikit-learn scipy tensorboard torch torchvision tmuxp
 
-COPY ./ ./TMVA4D
-RUN pip install -e ./TMVA4D
+COPY ./ ./tmva4d
+RUN pip install -e ./tmva4d
 
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
-WORKDIR ./TMVA4D
+WORKDIR ./tmva4d
