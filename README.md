@@ -60,16 +60,16 @@ You can look at the [Dockerfile](./Dockerfile) if you are uncertain about the st
 
 ## Running the code
 
-In any case, it is **mandatory** to specify beforehand both the path where the CARRADA dataset is located and the path to store the logs and models. Example: I put the Carrada folder in /home/datasets_local, the path I should specify is /home/datasets_local. The same way if I store my logs in /home/logs. Please run the following command lines while adapting the paths to your settings:
+In any case, it is **mandatory** to specify beforehand both the path where the Dataset4D dataset is located and the path to store the logs and models. Example: I put the Dataset4D folder in /home/datasets_local, the path I should specify is /home/datasets_local. The same way if I store my logs in /home/logs. Please run the following command lines while adapting the paths to your settings:
 
 ```bash
 $ cd tmva4d/tmva4d/utils/
-$ python set_paths.py --carrada /home/datasets_local --logs /home/logs
+$ python set_paths.py --dataset4d <path_to_dataset_parent_dir> --logs <path_to_logs_parent_dir>/logs
 ```
 
 ### Training
 
-In order to train a model, a JSON configuration file should be set. The configuration file corresponding to the selected parameters to train the TMVA-Net architecture is provided here: `tmva4d/tmva4d/config_files/tmvanet.json`. To train the TMVA-Net architecture, please run the following command lines:
+In order to train a model, a JSON configuration file should be set. The configuration file corresponding to the selected parameters to train the TMVA-Net architecture is provided here: `tmva4d/tmva4d/config_files/tmva4d.json`. To train the TMVA-Net architecture, please run the following command lines:
 
 ```bash
 $ cd tmva4d/tmva4d/
@@ -78,11 +78,11 @@ $ python train.py --cfg config_files/tmva4d.json
 
 ### Testing
 
-To test a recorded model, you should specify the path to the configuration file recorded in your log folder during training. For example, if you want to test a model and your log path has been set to `/home/logs`, you should specify the following path: `/home/logs/carrada/tmvanet/name_of_the_model/config.json`. This way, you should execute the following command lines:
+To test a recorded model, you should specify the path to the configuration file recorded in your log folder during training. For example, if you want to test a model and your log path has been set to `/home/logs`, you should specify the following path: `/home/logs/dataset4d/tmvanet/name_of_the_model/config.json`. This way, you should execute the following command lines:
 
 ```bash
 $ cd tmva4d/tmva4d/
-$ python test.py --cfg /home/logs/carrada/tmvanet/name_of_the_model/config.json
+$ python test.py --cfg <path_to_dataset_parent_dir>/tmva4d/name_of_the_model/config.json
 ```
 Note: the current implementation of this script will generate qualitative results in your log folder. You can disable this behavior by setting `get_quali=False` in the parameters of the `predict()` method of the `Tester()` class.
 
