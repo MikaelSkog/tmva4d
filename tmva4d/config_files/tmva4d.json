@@ -17,7 +17,7 @@
  "numpy_seed": 42,
  "version": 0,
  "device": "cuda",
- "custom_loss": "wce_w10sdice_w5col",
+ "custom_loss": "wce_w10sdice",
  "transformations": "hflip,vflip",
  "norm_type": "tvt",
  "shuffle": true,
