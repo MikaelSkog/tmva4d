@@ -119,30 +119,25 @@ class Model(nn.Module):
 
                     ea_outputs = self.net(ea_data, da_data, ed_data, er_data, ra_data)
                     ea_outputs = ea_outputs.to(self.device)
-                    if nb_losses < 3:
-                        # Case without the CoL
-                        ea_losses = [c(ea_outputs, torch.argmax(ea_mask, axis=1))
-                                     for c in ea_criterion]
-                        ea_loss = torch.mean(torch.stack(ea_losses))
-                        loss = torch.mean(ea_loss)
-                    else:
-                        # Case with the CoL
-                        # Select the wCE and wSDice
-                        ea_losses = [c(ea_outputs, torch.argmax(ea_mask, axis=1))
-                                     for c in ea_criterion[:2]]
-                        loss = torch.mean(torch.stack(ea_losses))
+                    
+                    ea_losses = [c(ea_outputs, torch.argmax(ea_mask, axis=1))
+                                    for c in ea_criterion]
+                    ea_loss = torch.mean(torch.stack(ea_losses))
+                    loss = torch.mean(ea_loss)
 
                     loss.backward()
                     optimizer.step()
                     running_losses.append(loss.data.cpu().numpy()[()])
                     ea_running_losses.append(ea_loss.data.cpu().numpy()[()])
                     ea_running_global_losses[0].append(ea_losses[0].data.cpu().numpy()[()])
-                    ea_running_global_losses[1].append(ea_losses[1].data.cpu().numpy()[()])
+                    # Case with both sDice and CE losses
+                    if nb_losses > 1:
+                        ea_running_global_losses[1].append(ea_losses[1].data.cpu().numpy()[()])
 
                     if iteration % self.loss_step == 0:
                         train_loss = np.mean(running_losses)
                         ea_train_loss = np.mean(ea_running_losses)
-                        ea_train_losses = [np.mean(sub_loss) for sub_loss in ea_running_global_losses] #
+                        ea_train_losses = [np.mean(sub_loss) for sub_loss in ea_running_global_losses]
                         print('[Epoch {}/{}, iter {}]: '
                               'train loss {}'.format(epoch+1,
                                                      self.nb_epochs,

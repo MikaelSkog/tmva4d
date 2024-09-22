@@ -176,7 +176,7 @@ def define_loss(signal_type, custom_loss, device):
         Supported: 'elevation_azimuth', 'range_azimuth', 'doppler_azimuth', 'elevation_range' and 'elevation_doppler'
     custom loss: str
         Short name of the custom loss to use
-        Supported: 'wce', 'sdice', 'wce_w10sdice' or 'wce_w10sdice_w5col'
+        Supported: 'wce', 'sdice', 'wce_w10sdice'
         Default: Cross Entropy is used for any other str
     devide: str
         Supported: 'cuda' or 'cpu'
@@ -185,17 +185,13 @@ def define_loss(signal_type, custom_loss, device):
         weights = get_class_weights(signal_type)
         loss = nn.CrossEntropyLoss(weight=weights.to(device).float())
     elif custom_loss == 'sdice':
-        loss = SoftDiceLoss()
+        loss = [SoftDiceLoss()]
     elif custom_loss == 'wce_w10sdice':
         weights = get_class_weights(signal_type)
         ce_loss = nn.CrossEntropyLoss(weight=weights.to(device).float())
         loss = [ce_loss, SoftDiceLoss(global_weight=10.)]
-    elif custom_loss == 'wce_w10sdice_w5col':
-        weights = get_class_weights(signal_type)
-        ce_loss = nn.CrossEntropyLoss(weight=weights.to(device).float())
-        loss = [ce_loss, SoftDiceLoss(global_weight=10.)]
     else:
-        loss = nn.CrossEntropyLoss()
+        loss = [nn.CrossEntropyLoss()]
     return loss
 
 
